@@ -53,6 +53,21 @@ model User {
     sessions      Session[]
 }
 
+model Day {
+    id     String   @id @default(cuid())
+    date   DateTime @unique
+    events Event[]
+}
+
+model Event {
+    id        String  @id @default(cuid())
+    title     String
+    completed Boolean
+    Day       Day?    @relation(fields: [dayId], references: [id])
+    dayId     String?
+    //priority system?
+}
+
 model VerificationToken {
     identifier String
     token      String   @unique
