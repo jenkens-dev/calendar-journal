@@ -51,21 +51,24 @@ model User {
     image         String?
     accounts      Account[]
     sessions      Session[]
-}
-
-model Day {
-    id     String   @id @default(cuid())
-    date   DateTime @unique
-    events Event[]
+    events        Event[]
 }
 
 model Event {
-    id        String  @id @default(cuid())
-    title     String
-    completed Boolean
-    Day       Day?    @relation(fields: [dayId], references: [id])
-    dayId     String?
-    //priority system?
+    id           String     @id @default(cuid())
+    title        String
+    completed    Boolean
+    event_meta   Event_Meta @relation(fields: [event_MetaId], references: [id])
+    User         User?      @relation(fields: [userId], references: [id])
+    userId       String?
+    event_MetaId String
+}
+
+model Event_Meta {
+    id              String   @id @default(cuid())
+    repeat_start    DateTime
+    repeat_interval DateTime
+    Event           Event[]
 }
 
 model VerificationToken {
