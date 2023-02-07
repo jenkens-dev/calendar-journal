@@ -55,20 +55,20 @@ model User {
 }
 
 model Event {
-    id           String     @id @default(cuid())
-    title        String
-    completed    Boolean
-    event_meta   Event_Meta @relation(fields: [event_MetaId], references: [id])
-    User         User?      @relation(fields: [userId], references: [id])
-    userId       String?
-    event_MetaId String
+    id         String      @id @default(cuid())
+    title      String
+    completed  Boolean
+    User       User?       @relation(fields: [userId], references: [id])
+    userId     String?
+    Event_Meta Event_Meta?
 }
 
 model Event_Meta {
     id              String   @id @default(cuid())
     repeat_start    DateTime
     repeat_interval DateTime
-    Event           Event[]
+    eventId         String   @unique
+    event           Event    @relation(fields: [eventId], references: [id])
 }
 
 model VerificationToken {
