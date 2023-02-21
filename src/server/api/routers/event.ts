@@ -29,7 +29,6 @@ export const eventRouter = createTRPCRouter({
   getAll: protectedProcedure.query(async ({ ctx }) => {
     try {
       return await ctx.prisma.event.findMany({
-        // update to use select and return only specific data?
         where: { userId: ctx.session.user.id },
       });
     } catch (error) {
