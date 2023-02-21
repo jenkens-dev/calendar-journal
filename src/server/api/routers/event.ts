@@ -8,6 +8,7 @@ export const eventRouter = createTRPCRouter({
         title: z.string(),
         completed: z.boolean(),
         userId: z.string(),
+        isRecurring: z.boolean(),
       })
     )
     .mutation(async ({ ctx, input }) => {
@@ -17,6 +18,7 @@ export const eventRouter = createTRPCRouter({
             title: input.title,
             completed: input.completed,
             userId: input.userId,
+            isRecurring: input.isRecurring,
           },
         });
       } catch (error) {
