@@ -1,8 +1,8 @@
 import { z } from "zod";
-import { createTRPCRouter, publicProcedure } from "../trpc";
+import { createTRPCRouter, protectedProcedure } from "../trpc";
 
 export const eventRouter = createTRPCRouter({
-  postEvent: publicProcedure
+  postEvent: protectedProcedure
     .input(
       z.object({
         title: z.string(),
@@ -25,4 +25,15 @@ export const eventRouter = createTRPCRouter({
         console.log(error);
       }
     }),
+
+  getAll: protectedProcedure.query(async ({ ctx }) => {
+    try {
+      return await ctx.prisma.event.findMany({
+        // update to use select and return only specific data?
+        where: { userId: ctx.session.user.id },
+      });
+    } catch (error) {
+      console.log("error", error);
+    }
+  }),
 });
