@@ -51,25 +51,18 @@ model User {
     image         String?
     accounts      Account[]
     sessions      Session[]
-    days          Day[]
+    notes         Note[]
     events        Event[]
 }
 
-model Day {
-    id     String   @id @default(cuid())
-    notes  String?
-    User   User?    @relation(fields: [userId], references: [id])
-    userId String?  @unique
-    date   DateTime
-}
-
 model Event {
-    id        String      @id @default(cuid())
-    title     String
-    completed Boolean
-    user      User        @relation(fields: [userId], references: [id])
-    userId    String      @unique
-    eventMeta Event_Meta?
+    id          String      @id @default(cuid())
+    title       String
+    completed   Boolean
+    user        User        @relation(fields: [userId], references: [id])
+    userId      String      @unique
+    eventMeta   Event_Meta?
+    isRecurring Boolean
 }
 
 model Event_Meta {
@@ -78,6 +71,14 @@ model Event_Meta {
     repeat_interval DateTime
     event           Event    @relation(fields: [eventId], references: [id])
     eventId         String   @unique
+}
+
+model Note {
+    id     String   @id @default(cuid())
+    text   String
+    date   DateTime
+    user   User     @relation(fields: [userId], references: [id])
+    userId String
 }
 
 model VerificationToken {
