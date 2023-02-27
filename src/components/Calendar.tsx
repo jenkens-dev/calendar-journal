@@ -14,6 +14,11 @@ export const Calendar: React.FC = () => {
       initialView="dayGridMonth"
       selectable
       select={handleDateSelect}
+      headerToolbar={{
+        left: "today",
+        center: "title",
+        right: "prev,next",
+      }}
     />
   );
 };
