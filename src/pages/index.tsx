@@ -2,6 +2,7 @@ import { type NextPage } from "next";
 import Head from "next/head";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { api } from "../utils/api";
+import { Calendar } from "../components/Calendar";
 
 const Home: NextPage = () => {
   return (
@@ -22,9 +23,12 @@ const Home: NextPage = () => {
           <div className="flex flex-col items-center gap-2">
             <AuthShowcase />
           </div>
-        </div>
-        <div className="pt-10">
-          <EventEntries />
+          {/* <div className="pt-10">
+            <EventEntries />
+          </div> */}
+          <div className="pt-10">
+            <Calendar />
+          </div>
         </div>
       </main>
     </>
